@@ -188,7 +188,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 301
+    width: 300
     height: 708
   m_MinSize: {x: 201, y: 221}
   m_MaxSize: {x: 4001, y: 4021}
@@ -212,7 +212,7 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 301
+    x: 300
     y: 0
     width: 575
     height: 708
@@ -238,9 +238,9 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 876
+    x: 875
     y: 0
-    width: 556
+    width: 557
     height: 708
   m_MinSize: {x: 202, y: 221}
   m_MaxSize: {x: 4002, y: 4021}
@@ -323,9 +323,9 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 876
+    x: 875
     y: 73
-    width: 554
+    width: 555
     height: 687
   m_SerializedDataModeController:
     m_DataMode: 0
@@ -381,10 +381,10 @@ MonoBehaviour:
       serializedVersion: 2
       x: 0
       y: 21
-      width: 554
+      width: 555
       height: 666
-    m_Scale: {x: 0.28854167, y: 0.28854167}
-    m_Translation: {x: 277, y: 333}
+    m_Scale: {x: 0.2890625, y: 0.2890625}
+    m_Translation: {x: 277.5, y: 333}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
@@ -392,12 +392,12 @@ MonoBehaviour:
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
       x: -960
-      y: -1154.0793
+      y: -1152
       width: 1920
-      height: 2308.1587
+      height: 2304
     m_MinimalGUI: 1
-  m_defaultScale: 0.28854167
-  m_LastWindowPixelSize: {x: 554, y: 687}
+  m_defaultScale: 0.2890625
+  m_LastWindowPixelSize: {x: 555, y: 687}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 01000000000000000000
@@ -425,7 +425,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 73
-    width: 300
+    width: 299
     height: 687
   m_SerializedDataModeController:
     m_DataMode: 0
@@ -442,7 +442,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 0e590000
       m_LastClickedID: 22798
-      m_ExpandedIDs: 2cfbffff0e590000
+      m_ExpandedIDs: 2cfbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -486,7 +486,7 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 301
+    x: 300
     y: 73
     width: 573
     height: 687
@@ -1054,7 +1054,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 62590000
     m_LastClickedID: 22882
-    m_ExpandedIDs: 000000006059000000ca9a3b
+    m_ExpandedIDs: 00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

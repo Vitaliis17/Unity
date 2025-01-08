@@ -24,7 +24,7 @@ public class Counter : MonoBehaviour
         {
             yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
 
-            Debug.Log(" нопка была нажата");
+            Debug.Log("Button Down");
 
             _clickAmount++;
 
