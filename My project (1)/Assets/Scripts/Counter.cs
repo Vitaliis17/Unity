@@ -24,10 +24,14 @@ public class Counter : MonoBehaviour
         {
             yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
 
+            Debug.Log(" нопка была нажата");
+
             _clickAmount++;
+
+            yield return null;
         }
     }
-
+    
     private IEnumerator Timer(float delay, float stepValue)
     {
         float counter = 0;
