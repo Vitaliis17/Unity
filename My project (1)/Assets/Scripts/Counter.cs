@@ -7,17 +7,17 @@ public class Counter : MonoBehaviour
     [SerializeField] private float _delay;
     [SerializeField] private float _stepValue;
 
-    public static event Action<int> ScoreChanged;
+    [SerializeField] private KeyCode _keyCode;
+
+    public event Action<int> ScoreChanged;
 
     private Coroutine _coroutine;
     private int _score = 0;
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(_keyCode))
         {
-            Debug.Log("Button Down");
-
             if (_coroutine != null)
             {
                 StopCoroutine(_coroutine);

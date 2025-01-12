@@ -3,21 +3,19 @@ using TMPro;
 
 public class CounterView : MonoBehaviour
 {
+    [SerializeField] private Counter _counter;
+
     private TextMeshProUGUI _text;
 
-    private void Awake()
-        => _text = GetComponent<TextMeshProUGUI>();
+    private void Awake() => 
+        _text = GetComponent<TextMeshProUGUI>();
 
-    private void OnEnable()
-    {
-        Counter.ScoreChanged += SetText;
-    }
+    private void OnEnable() =>
+        _counter.ScoreChanged += SetText;
 
-    private void OnDisable()
-    {
-        Counter.ScoreChanged -= SetText;
-    }
+    private void OnDisable() =>
+        _counter.ScoreChanged -= SetText;
 
-    private void SetText(int counter)
-        => _text.text = counter.ToString();
+    private void SetText(int score) => 
+        _text.text = score.ToString();
 }
