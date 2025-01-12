@@ -1,18 +1,16 @@
+using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class Counter : MonoBehaviour
 {
     [SerializeField] private float _delay;
     [SerializeField] private float _stepValue;
 
-    public UnityEvent<int> TextChanging;
+    public static event Action<int> ScoreChanged;
 
-    private int _clickAmount = 0;
-
-    private void Awake()
-        => StartCoroutine(Timer(_delay, _stepValue));
+    private Coroutine _coroutine;
+    private int _score = 0;
 
     private void Update()
     {
@@ -20,26 +18,29 @@ public class Counter : MonoBehaviour
         {
             Debug.Log("Button Down");
 
-            _clickAmount++;
+            if (_coroutine != null)
+            {
+                StopCoroutine(_coroutine);
+                _coroutine = null;
+
+                return;
+            }
+
+            _coroutine = StartCoroutine(KeepScore(_delay, _stepValue));
         }
     }
 
-    private IEnumerator Timer(float delay, float stepValue)
+    private IEnumerator KeepScore(float delay, float stepValue)
     {
-        int counter = 0;
-        
         WaitForSeconds waitTime = new WaitForSeconds(delay);
-        WaitUntil waitUntil = new WaitUntil(() => _clickAmount % 2 == 1);
 
         while (true)
         {
-            yield return waitUntil;
-
-            counter++;
-
-            TextChanging?.Invoke(counter);
-
             yield return waitTime;
+
+            _score++;
+
+            ScoreChanged?.Invoke(_score);
         }
     }
 }

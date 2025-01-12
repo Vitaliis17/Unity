@@ -8,6 +8,16 @@ public class CounterView : MonoBehaviour
     private void Awake()
         => _text = GetComponent<TextMeshProUGUI>();
 
-    public void SetText(int counter)
+    private void OnEnable()
+    {
+        Counter.ScoreChanged += SetText;
+    }
+
+    private void OnDisable()
+    {
+        Counter.ScoreChanged -= SetText;
+    }
+
+    private void SetText(int counter)
         => _text.text = counter.ToString();
 }
