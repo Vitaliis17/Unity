@@ -32,7 +32,7 @@ public class Counter : MonoBehaviour
 
     private IEnumerator KeepScore(float delay, float stepValue)
     {
-        WaitForSeconds waitTime = new WaitForSeconds(delay);
+        WaitForSeconds waitTime = new(delay);
 
         while (true)
         {
