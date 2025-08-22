@@ -26,10 +26,10 @@ public class Separater : MonoBehaviour
 
     private List<Rigidbody> Separate()
     {
-        if (RandomTransmitter.ReadInt(0, 100 + 1) > _chance)
+        if (Random.Range(0, 100 + 1) > _chance)
             return null;
 
-        int separetingAmount = RandomTransmitter.ReadInt(_minObjectAmount, _maxObjectAmount + 1);
+        int separetingAmount = Random.Range(_minObjectAmount, _maxObjectAmount + 1);
 
         float nextChance = _chance / _reductionMultiplicity;
 
@@ -65,7 +65,7 @@ public class Separater : MonoBehaviour
         Color color = new();
 
         for (int i = 0; i < ColorComponentAmount; i++)
-            color[i] = RandomTransmitter.ReadFloat();
+            color[i] = Random.Range(0f, 1f);
 
         renderer.material.color = color;
     }
