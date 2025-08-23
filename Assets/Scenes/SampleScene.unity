@@ -318,6 +318,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _raycaster: {fileID: 519539740}
+  _spawner: {fileID: 519539738}
+  _explosion: {fileID: 519539737}
 --- !u!114 &519539740
 MonoBehaviour:
   m_ObjectHideFlags: 0

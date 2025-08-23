@@ -8,17 +8,19 @@ public class Raycaster : MonoBehaviour
 
     [SerializeField] private LayerMask _layerMask;
 
-    public event Action<GameObject> RaycastHitting;
+    public event Action<Collider> RaycastHitting;
 
-    private void OnEnable() => _inputReader.MouseClicked += Read;
+    private void OnEnable() 
+        => _inputReader.MouseClicked += Read;
 
-    private void OnDisable() => _inputReader.MouseClicked -= Read;
+    private void OnDisable() 
+        => _inputReader.MouseClicked -= Read;
 
     private void Read()
     {
         Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, _layerMask))
-            RaycastHitting?.Invoke(hit.collider.gameObject);
+            RaycastHitting?.Invoke(hit.collider);
     }
 }

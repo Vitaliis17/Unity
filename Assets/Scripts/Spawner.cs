@@ -7,32 +7,28 @@ public class Spawner : MonoBehaviour
     private readonly int _minAmount = 2;
     private readonly int _maxAmount = 6;
 
-    private void OnEnable() => _cubeClickHandler.CubesSpawning += SpawnManyObjects;
-
-    private void OnDisable() => _cubeClickHandler.CubesSpawning -= SpawnManyObjects;
-
-    private Rigidbody[] SpawnManyObjects(GameObject origin, bool isSpawnCubes)
+    public GameObject[] SpawnManyObjects(Collider origin, bool isSpawnCubes)
     {
         int gameObjectAmount = isSpawnCubes ? Random.Range(_minAmount, _maxAmount + 1) : 0;
 
-        Rigidbody[] rigidbodies = new Rigidbody[gameObjectAmount];
+        GameObject[] rigidbodies = new GameObject[gameObjectAmount];
 
         for(int i = 0; i < rigidbodies.Length; i++)
-            rigidbodies[i] = Spawn(origin).GetComponent<Rigidbody>();
+            rigidbodies[i] = Spawn(origin);
 
-        Destroy(origin);
+        Destroy(origin.gameObject);
 
         return rigidbodies;
     }
 
-    private GameObject Spawn(GameObject origin)
+    private GameObject Spawn(Collider origin)
     {
-        GameObject clone = Instantiate(origin);
+        GameObject clone = Instantiate(origin).gameObject;
 
         Renderer renderer = clone.GetComponent<Renderer>();
         SetRandomColor(renderer);
 
-        clone.transform.localScale = origin.transform.localScale / 2;
+        clone.transform.localScale = origin.gameObject.transform.localScale / 2;
 
         return clone;
     }
