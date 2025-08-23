@@ -21,7 +21,7 @@ public class CubeClickHandler : MonoBehaviour
         const int MinPercentAmount = 0;
         const int MaxPercentAmount = 100;
 
-        bool isSpawnCubes = UnityEngine.Random.Range(MinPercentAmount, MaxPercentAmount) <= _spawnChance;
+        bool isSpawnCubes = UnityEngine.Random.Range(MinPercentAmount, MaxPercentAmount + 1) <= _spawnChance;
         _spawnChance /= 2;
 
         Vector3 currentPosition = cube.transform.position;
