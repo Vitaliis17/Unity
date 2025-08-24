@@ -10,11 +10,11 @@ public class Cube : MonoBehaviour
             => ReadSeparatingChance();
     }
 
+    public void SetSize(Vector3 size)
+        => transform.localScale = size;
+
     private void Awake()
-    {
-        Rigidbody = GetComponent<Rigidbody>();
-        GetComponent<Renderer>().material.color = Random.ColorHSV();
-    }
+        => Rigidbody = GetComponent<Rigidbody>();
 
     private float ReadSeparatingChance()
     {
