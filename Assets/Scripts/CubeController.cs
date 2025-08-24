@@ -1,11 +1,19 @@
 using UnityEngine;
 
-public class SeparatingChanceHandler : MonoBehaviour
+public class CubeController : MonoBehaviour
 {
+    public Rigidbody Rigidbody { get; private set; }
+
     public float SeparatingChance
     {
         get
             => ReadSeparatingChance();
+    }
+
+    private void Awake()
+    {
+        Rigidbody = GetComponent<Rigidbody>();
+        GetComponent<Renderer>().material.color = Random.ColorHSV();
     }
 
     private float ReadSeparatingChance()

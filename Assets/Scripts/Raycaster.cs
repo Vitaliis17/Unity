@@ -8,7 +8,7 @@ public class Raycaster : MonoBehaviour
 
     [SerializeField] private LayerMask _layerMask;
 
-    public event Action<SeparatingChanceHandler> RaycastHitting;
+    public event Action<Collider> RaycastHitting;
 
     private void OnEnable() 
         => _inputReader.MouseClicked += Read;
@@ -21,6 +21,6 @@ public class Raycaster : MonoBehaviour
         Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, _layerMask))
-            RaycastHitting?.Invoke(hit.collider.GetComponent<SeparatingChanceHandler>());
+            RaycastHitting?.Invoke(hit.collider);
     }
 }

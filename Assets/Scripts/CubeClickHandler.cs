@@ -1,5 +1,4 @@
 using UnityEngine;
-using System;
 
 public class CubeClickHandler : MonoBehaviour
 {
@@ -14,25 +13,26 @@ public class CubeClickHandler : MonoBehaviour
     private void OnDisable()
         => _raycaster.RaycastHitting -= Spawn;
 
-    private void Spawn(SeparatingChanceHandler cubeController)
+    private void Spawn(Collider cubeCollider)
     {
         const int MinPercentAmount = 0;
         const int MaxPercentAmount = 100;
 
-        bool isSpawnCubes = UnityEngine.Random.Range(MinPercentAmount, MaxPercentAmount + 1) <= cubeController.SeparatingChance;
+        CubeController handler = cubeCollider.gameObject.GetComponent<CubeController>();
 
-        Vector3 currentPosition = cubeController.gameObject.transform.position;
+        bool isSpawnCubes = Random.Range(MinPercentAmount, MaxPercentAmount + 1) <= handler.SeparatingChance;
+
+        Vector3 currentPosition = cubeCollider.gameObject.transform.position;
         GameObject[] cubes = new GameObject[0];
 
         if (isSpawnCubes)
-            cubes = _spawner.SpawnManyObjects(cubeController);
+            cubes = _spawner.SpawnManyObjects(cubeCollider);
 
-        _spawner.DestroyCube(cubeController);
-
+        _spawner.DestroyCube(cubeCollider);
         Rigidbody[] cubeRigidbodies = new Rigidbody[cubes.Length];
 
         for (int i = 0; i < cubeRigidbodies.Length; i++)
-            cubeRigidbodies[i] = cubes[i].GetComponent<Rigidbody>();
+            cubeRigidbodies[i] = cubes[i].GetComponent<CubeController>().Rigidbody;
 
         if (cubeRigidbodies == null || cubeRigidbodies.Length == 0)
             return;
