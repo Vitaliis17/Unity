@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Explosion : MonoBehaviour
+public class Exploder : MonoBehaviour
 {
     [SerializeField] private CubeClickHandler _cubeClickHandler;
 

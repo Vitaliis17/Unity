@@ -5,27 +5,29 @@ public class Spawner : MonoBehaviour
     private readonly int _minAmount = 2;
     private readonly int _maxAmount = 6;
 
-    public GameObject[] SpawnManyObjects(Collider cubeCollider)
+    [SerializeField] private GameObject _cube;
+
+    public Collider[] SpawnManyObjects(Collider origin)
     {
-        int gameObjectAmount = Random.Range(_minAmount, _maxAmount + 1);
+        int cubeAmount = Random.Range(_minAmount, _maxAmount + 1);
 
-        GameObject[] gameObjects = new GameObject[gameObjectAmount];
+        Collider[] cubes = new Collider[cubeAmount];
 
-        for(int i = 0; i < gameObjects.Length; i++)
-            gameObjects[i] = Spawn(cubeCollider);
+        for(int i = 0; i < cubes.Length; i++)
+            cubes[i] = Spawn(origin);
 
-        return gameObjects;
+        return cubes;
     }
 
     public void DestroyCube(Collider cubeCollider)
         => Destroy(cubeCollider.gameObject);
 
-    private GameObject Spawn(Collider cubeController)
+    private Collider Spawn(Collider origin)
     {
-        GameObject clone = Instantiate(cubeController).gameObject;  
+        Collider cube = Instantiate(_cube).GetComponent<Collider>();  
 
-        clone.transform.localScale = cubeController.gameObject.transform.localScale / 2;
+        cube.transform.localScale = origin.transform.localScale / 2;
 
-        return clone;
+        return cube;
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CubeController : MonoBehaviour
+public class Cube : MonoBehaviour
 {
     public Rigidbody Rigidbody { get; private set; }
 

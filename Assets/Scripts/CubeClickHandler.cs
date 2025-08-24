@@ -5,7 +5,7 @@ public class CubeClickHandler : MonoBehaviour
     [SerializeField] private Raycaster _raycaster;
 
     [SerializeField] private Spawner _spawner;
-    [SerializeField] private Explosion _explosion;
+    [SerializeField] private Exploder _explosion;
 
     private void OnEnable()
         => _raycaster.RaycastHitting += Spawn;
@@ -18,12 +18,12 @@ public class CubeClickHandler : MonoBehaviour
         const int MinPercentAmount = 0;
         const int MaxPercentAmount = 100;
 
-        CubeController handler = cubeCollider.gameObject.GetComponent<CubeController>();
+        Cube handler = cubeCollider.gameObject.GetComponent<Cube>();
 
         bool isSpawnCubes = Random.Range(MinPercentAmount, MaxPercentAmount + 1) <= handler.SeparatingChance;
 
         Vector3 currentPosition = cubeCollider.gameObject.transform.position;
-        GameObject[] cubes = new GameObject[0];
+        Collider[] cubes = new Collider[0];
 
         if (isSpawnCubes)
             cubes = _spawner.SpawnManyObjects(cubeCollider);
@@ -32,7 +32,7 @@ public class CubeClickHandler : MonoBehaviour
         Rigidbody[] cubeRigidbodies = new Rigidbody[cubes.Length];
 
         for (int i = 0; i < cubeRigidbodies.Length; i++)
-            cubeRigidbodies[i] = cubes[i].GetComponent<CubeController>().Rigidbody;
+            cubeRigidbodies[i] = cubes[i].GetComponent<Cube>().Rigidbody;
 
         if (cubeRigidbodies == null || cubeRigidbodies.Length == 0)
             return;
