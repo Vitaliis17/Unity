@@ -304,7 +304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be3049d1a02186545a9dc829456d9196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cubeClickHandler: {fileID: 519539739}
+  _cube: {fileID: 6939122688698972026, guid: 486bfc283ba1f934585ed8f8c40db7b6, type: 3}
 --- !u!114 &519539739
 MonoBehaviour:
   m_ObjectHideFlags: 0
