@@ -7,24 +7,24 @@ public class Spawner : MonoBehaviour
 
     [SerializeField] private GameObject _cube;
 
-    public Collider[] SpawnManyObjects(Collider origin)
+    public Cube[] SpawnManyCubes(Cube cube)
     {
         int cubeAmount = Random.Range(_minAmount, _maxAmount + 1);
 
-        Collider[] cubes = new Collider[cubeAmount];
+        Cube[] cubes = new Cube[cubeAmount];
 
         for(int i = 0; i < cubes.Length; i++)
-            cubes[i] = Spawn(origin);
+            cubes[i] = Spawn(cube);
 
         return cubes;
     }
 
-    public void DestroyCube(Collider cubeCollider)
-        => Destroy(cubeCollider.gameObject);
+    public void DestroyCube(Cube cube)
+        => Destroy(cube.gameObject);
 
-    private Collider Spawn(Collider origin)
+    private Cube Spawn(Cube origin)
     {
-        Collider cube = Instantiate(_cube).GetComponent<Collider>();  
+        Cube cube = Instantiate(_cube).GetComponent<Cube>();  
 
         cube.transform.localScale = origin.transform.localScale / 2;
 

@@ -13,26 +13,26 @@ public class CubeClickHandler : MonoBehaviour
     private void OnDisable()
         => _raycaster.RaycastHitting -= Spawn;
 
-    private void Spawn(Collider cube)
+    private void Spawn(Collider cubeCollider)
     {
         const int MinPercentAmount = 0;
         const int MaxPercentAmount = 100;
 
-        Cube handler = cube.gameObject.GetComponent<Cube>();
+        Cube cube = cubeCollider.gameObject.GetComponent<Cube>();
 
-        bool isSpawnCubes = Random.Range(MinPercentAmount, MaxPercentAmount + 1) <= handler.SeparatingChance;
+        bool isSpawnCubes = Random.Range(MinPercentAmount, MaxPercentAmount + 1) <= cube.SeparatingChance;
 
-        Vector3 currentPosition = cube.gameObject.transform.position;
-        Collider[] cubes = new Collider[0];
+        Vector3 currentPosition = cubeCollider.gameObject.transform.position;
+        Cube[] cubes = new Cube[0];
 
         if (isSpawnCubes)
-            cubes = _spawner.SpawnManyObjects(cube);
+            cubes = _spawner.SpawnManyCubes(cube);
 
         _spawner.DestroyCube(cube);
         Rigidbody[] cubeRigidbodies = new Rigidbody[cubes.Length];
 
         for (int i = 0; i < cubeRigidbodies.Length; i++)
-            cubeRigidbodies[i] = cubes[i].GetComponent<Cube>().Rigidbody;
+            cubeRigidbodies[i] = cubes[i].Rigidbody;
 
         if (cubeRigidbodies == null || cubeRigidbodies.Length == 0)
             return;
