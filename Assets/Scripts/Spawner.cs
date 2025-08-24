@@ -7,41 +7,29 @@ public class Spawner : MonoBehaviour
     private readonly int _minAmount = 2;
     private readonly int _maxAmount = 6;
 
-    public GameObject[] SpawnManyObjects(Collider origin, bool isSpawnCubes)
+    public GameObject[] SpawnManyObjects(SeparatingChanceHandler cubeController)
     {
-        int gameObjectAmount = isSpawnCubes ? Random.Range(_minAmount, _maxAmount + 1) : 0;
+        int gameObjectAmount = Random.Range(_minAmount, _maxAmount + 1);
 
-        GameObject[] rigidbodies = new GameObject[gameObjectAmount];
+        GameObject[] gameObjects = new GameObject[gameObjectAmount];
 
-        for(int i = 0; i < rigidbodies.Length; i++)
-            rigidbodies[i] = Spawn(origin);
+        for(int i = 0; i < gameObjects.Length; i++)
+            gameObjects[i] = Spawn(cubeController);
 
-        Destroy(origin.gameObject);
-
-        return rigidbodies;
+        return gameObjects;
     }
 
-    private GameObject Spawn(Collider origin)
+    public void DestroyCube(SeparatingChanceHandler cubeController)
+        => Destroy(cubeController.gameObject);
+
+    private GameObject Spawn(SeparatingChanceHandler cubeController)
     {
-        GameObject clone = Instantiate(origin).gameObject;
+        GameObject clone = Instantiate(cubeController).gameObject;
 
-        Renderer renderer = clone.GetComponent<Renderer>();
-        SetRandomColor(renderer);
+        clone.GetComponent<Renderer>().material.color = Random.ColorHSV();   
 
-        clone.transform.localScale = origin.gameObject.transform.localScale / 2;
+        clone.transform.localScale = cubeController.gameObject.transform.localScale / 2;
 
         return clone;
-    }
-
-    private void SetRandomColor(Renderer renderer)
-    {
-        const int ColorComponentAmount = 4;
-
-        Color color = new();
-
-        for (int i = 0; i < ColorComponentAmount; i++)
-            color[i] = Random.Range(0f, 1f);
-
-        renderer.material.color = color;
     }
 }
