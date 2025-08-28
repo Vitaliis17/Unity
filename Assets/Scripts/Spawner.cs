@@ -14,7 +14,7 @@ public class Spawner : MonoBehaviour
         Cube[] cubes = new Cube[cubeAmount];
 
         for(int i = 0; i < cubes.Length; i++)
-            cubes[i] = Spawn(cube);
+            cubes[i] = Spawn(cube, cube.transform.position);
 
         return cubes;
     }
@@ -22,11 +22,12 @@ public class Spawner : MonoBehaviour
     public void DestroyCube(Cube cube)
         => Destroy(cube.gameObject);
 
-    private Cube Spawn(Cube origin)
+    private Cube Spawn(Cube origin, Vector3 position)
     {
         const int CloneCubeSizeDivider = 2;
 
         Cube cube = Instantiate(_cube).GetComponent<Cube>();
+        cube.transform.position = position;
 
         Vector3 cubeScale = origin.transform.localScale / CloneCubeSizeDivider;
         cube.SetSize(cubeScale);
