@@ -23,20 +23,40 @@ public class CubeClickHandler : MonoBehaviour
         bool isSpawnCubes = Random.Range(MinPercentAmount, MaxPercentAmount + 1) <= cube.SeparatingChance;
 
         Vector3 currentPosition = cubeCollider.gameObject.transform.position;
-        Cube[] cubes = new Cube[0];
+
+        Cube[] cubes;
+        Rigidbody[] rigidbodies;
+
+        float radiusCoefficient = 1f;
+        float forceCoefficient = 1f;
 
         if (isSpawnCubes)
+        {
             cubes = _spawner.SpawnManyCubes(cube);
+        }
+        else
+        {
+            radiusCoefficient = cube.ExplosionRadiusMultiplier;
+            forceCoefficient = cube.ExplosionForceMultiplier;
+
+            float explosionRadius = _explosion.ReadRadius(radiusCoefficient);
+
+            LayerMask cubeLayer = 1 << cube.gameObject.layer;
+            Collider[] colliders = Physics.OverlapSphere(currentPosition, explosionRadius, cubeLayer);
+
+            cubes = new Cube[colliders.Length];
+
+            for (int i = 0; i < cubes.Length; i++)
+                cubes[i] = colliders[i].GetComponent<Cube>();
+        }
 
         _spawner.DestroyCube(cube);
-        Rigidbody[] cubeRigidbodies = new Rigidbody[cubes.Length];
 
-        for (int i = 0; i < cubeRigidbodies.Length; i++)
-            cubeRigidbodies[i] = cubes[i].Rigidbody;
+        rigidbodies = new Rigidbody[cubes.Length];
 
-        if (cubeRigidbodies == null || cubeRigidbodies.Length == 0)
-            return;
+        for (int i = 0; i < rigidbodies.Length; i++)
+            rigidbodies[i] = cubes[i].Rigidbody;
 
-        _explosion.Explode(cubeRigidbodies, currentPosition);
+        _explosion.Explode(rigidbodies, currentPosition, forceCoefficient, radiusCoefficient);
     }
 }

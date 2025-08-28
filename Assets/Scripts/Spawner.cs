@@ -26,7 +26,7 @@ public class Spawner : MonoBehaviour
     {
         const int CloneCubeSizeDivider = 2;
 
-        Cube cube = Instantiate(_cube).GetComponent<Cube>();  
+        Cube cube = Instantiate(_cube).GetComponent<Cube>();
 
         Vector3 cubeScale = origin.transform.localScale / CloneCubeSizeDivider;
         cube.SetSize(cubeScale);

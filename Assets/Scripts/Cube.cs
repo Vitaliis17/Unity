@@ -4,6 +4,18 @@ public class Cube : MonoBehaviour
 {
     public Rigidbody Rigidbody { get; private set; }
 
+    public float ExplosionRadiusMultiplier
+    {
+        get
+            => transform.localScale.x;
+    }
+
+    public float ExplosionForceMultiplier
+    {
+        get 
+            => transform.localScale.x;
+    }
+
     public float SeparatingChance
     {
         get
