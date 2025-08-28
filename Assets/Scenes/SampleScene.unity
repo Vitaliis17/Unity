@@ -290,8 +290,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cubeClickHandler: {fileID: 519539739}
-  _radius: 200
-  _force: 400
+  _baseForce: 300
+  _baseRadius: 300
 --- !u!114 &519539738
 MonoBehaviour:
   m_ObjectHideFlags: 0
