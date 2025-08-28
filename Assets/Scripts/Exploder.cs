@@ -7,15 +7,22 @@ public class Exploder : MonoBehaviour
     [SerializeField] private int _baseForce;
     [SerializeField] private int _baseRadius;
 
-    public void Explode(Rigidbody[] rigidbodies, Vector3 centre, float forceMultiplier, float radiusMultiplier)
+    public void ExplodeRigidbodies(Rigidbody[] rigidbodies, Vector3 centre, float radiusMultiplier, float[] forceCoefficients)
     {
-        float force = _baseForce * forceMultiplier;
+        float[] forces = new float[forceCoefficients.Length];
+
+        for (int i = 0; i < forces.Length; i++)
+            forces[i] = _baseForce * forceCoefficients[i];
+
         float radius = _baseRadius * radiusMultiplier;
 
-        foreach (Rigidbody rigidbody in rigidbodies)
-            rigidbody.AddExplosionForce(force, centre, radius);
+        for (int i = 0; i < rigidbodies.Length; i++)
+            rigidbodies[i].AddExplosionForce(forces[i], centre, radius);
     }
 
-    public float ReadRadius(float radiusMultiplier = 1f)
-        => _baseForce * radiusMultiplier;
+    public float ReadRadius(float radiusMultiplier)
+        => _baseRadius * radiusMultiplier;
+
+    public float ReadForce(float forceMultiplier)
+        => _baseForce * forceMultiplier;
 }
