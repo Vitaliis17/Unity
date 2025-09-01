@@ -2,6 +2,11 @@ using UnityEngine;
 
 public class MaterialColor : MonoBehaviour
 {
+    private Renderer _renderer;
+
     private void Awake()
-        => GetComponent<Renderer>().material.color = Random.ColorHSV();
+        => _renderer = GetComponent<Renderer>();
+
+    public void SetRandomColor()
+        => _renderer.material.color = Random.ColorHSV();
 }
