@@ -2,11 +2,27 @@ using UnityEngine;
 
 public class MaterialColor : MonoBehaviour
 {
+    [SerializeField, Min(0)] private int _maxChangingColorAmount;
+
+    private int _currentChangingColorAmount;
     private Renderer _renderer;
 
     private void Awake()
-        => _renderer = GetComponent<Renderer>();
+    {
+        _currentChangingColorAmount = _maxChangingColorAmount;
+        _renderer = GetComponent<Renderer>();
+    }
 
     public void SetRandomColor()
-        => _renderer.material.color = Random.ColorHSV();
+    {
+        if (CanChangeColor())
+        {
+            _currentChangingColorAmount--;
+
+            _renderer.material.color = Random.ColorHSV();
+        }
+    }
+
+    private bool CanChangeColor()
+        => _currentChangingColorAmount > 0;
 }

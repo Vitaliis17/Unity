@@ -260,6 +260,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3052691797462080408, guid: 486bfc283ba1f934585ed8f8c40db7b6, type: 3}
+      propertyPath: _maxChangingColorAmount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6201794372500313474, guid: 486bfc283ba1f934585ed8f8c40db7b6, type: 3}
       propertyPath: m_Name
       value: Cube
@@ -723,6 +727,57 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1834806311}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1891894260 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6201794372500313474, guid: 486bfc283ba1f934585ed8f8c40db7b6, type: 3}
+  m_PrefabInstance: {fileID: 946242687}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2082691794
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2082691796}
+  - component: {fileID: 2082691795}
+  m_Layer: 0
+  m_Name: Cubes
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2082691795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2082691794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6954130a480803745b76390bf9663039, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cubePrefab: {fileID: 1891894260}
+  _folder: {fileID: 2082691796}
+--- !u!4 &2082691796
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2082691794}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 8.020046, y: 7.7398987, z: 9.055897}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2095971958
 GameObject:
   m_ObjectHideFlags: 0
