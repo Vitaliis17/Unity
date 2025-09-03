@@ -9,16 +9,19 @@ public class Cube : MonoBehaviour
 
     public event Action CollisionLayerCollided;
 
-    public Renderer _renderer { get; private set; }
+    public Renderer Renderer { get; private set; }
 
     private void Awake()
-        => _renderer = GetComponent<Renderer>();
+        => Renderer = GetComponent<Renderer>();
 
     private void OnCollisionEnter(Collision collision)
     {
         LayerMask collisionLayer = 1 << collision.gameObject.layer;
 
         if (_collisionLayers.Any(layer => collisionLayer == layer.value))
+        {
             CollisionLayerCollided?.Invoke();
+            CollisionLayerCollided = null;
+        }
     }
 }
