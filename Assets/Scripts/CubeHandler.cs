@@ -1,15 +1,15 @@
 using UnityEngine;
 using System.Collections;
 
-public class ObjectHandler<T> : MonoBehaviour where T : Component
+public class CubeHandler : MonoBehaviour
 {
     [field: SerializeField, Min(1f)] public float PeriodicitySpawning { get; }
 
     [field: SerializeField, Min(0f)] public float MinDestroyingTime { get; private set; }
     [field: SerializeField, Min(0f)] public float MaxDestroyingTime { get; private set; }
 
-    [SerializeField] private Timer<T> _timer;
-    [SerializeField] private Spawner<T> _spawner;
+    [SerializeField] private Timer _timer;
+    [SerializeField] private Spawner _spawner;
 
     private void OnValidate()
     {
@@ -37,23 +37,20 @@ public class ObjectHandler<T> : MonoBehaviour where T : Component
 
     private void Spawn()
     {
-        T component = _spawner.Spawn();
-        IEnumerator deathTimer = GetDeathTimer(component);
+        Cube cube = _spawner.Spawn();
+        IEnumerator deathTimer = GetDeathTimer(cube);
 
-        if (component is Cube cube)
+        cube.CollisionLayerCollided += () =>
         {
-            cube.CollisionLayerCollided += () =>
-            {
-                StartCoroutine(deathTimer);
-                cube.Renderer.material.color = Random.ColorHSV();
-            };
-        }
+            StartCoroutine(deathTimer);
+            cube.Renderer.material.color = Random.ColorHSV();
+        };
     }
 
-    private IEnumerator GetDeathTimer(T component)
+    private IEnumerator GetDeathTimer(Cube cube)
     {
         float lifeTime = Random.Range(MinDestroyingTime, MaxDestroyingTime);
 
-        return _timer.WaitSeconds(lifeTime, component);
+        return _timer.WaitSeconds(lifeTime, cube);
     }
 }

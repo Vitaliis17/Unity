@@ -1,31 +1,31 @@
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class Pool<T> : MonoBehaviour where T : Component
+public class Pool : MonoBehaviour
 {
     [SerializeField] private GameObject _objectPrefab;
     [SerializeField] private Transform _folder;
 
-    private ObjectPool<T> _objects;
+    private ObjectPool<Cube> _cubes;
 
     private void Awake()
-        => _objects = new ObjectPool<T>(Create, Get, Release, Destroy);
+        => _cubes = new ObjectPool<Cube>(Create, Get, Release, Destroy);
 
-    public T GetObject()
-        => _objects.Get();
+    public Cube GetObject()
+        => _cubes.Get();
 
-    public void ReleaseObject(T component)
-        => _objects.Release(component);
+    public void ReleaseCube(Cube cube)
+        => _cubes.Release(cube);
 
-    private T Create()
-        => Instantiate(_objectPrefab, _folder.transform).GetComponent<T>();
+    private Cube Create()
+        => Instantiate(_objectPrefab, _folder.transform).GetComponent<Cube>();
 
-    private void Get(T cube)
+    private void Get(Cube cube)
         => cube.gameObject.SetActive(true);
 
-    private void Release(T cube)
+    private void Release(Cube cube)
         => cube.gameObject.SetActive(false);
 
-    private void Destroy(T cube)
+    private void Destroy(Cube cube)
         => Destroy(cube.gameObject);
 }

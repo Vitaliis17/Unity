@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class Spawner<T> : MonoBehaviour where T : Component
+public class Spawner : MonoBehaviour
 {
-    [SerializeField] private Pool<T> _pool;
+    [SerializeField] private Pool _pool;
 
     [SerializeField] private float _positionY;
 
@@ -12,18 +12,18 @@ public class Spawner<T> : MonoBehaviour where T : Component
     [SerializeField] private float _minPositionZ;
     [SerializeField] private float _maxPositionZ;
 
-    public T Spawn()
+    public Cube Spawn()
     {
-        T component = _pool.GetObject();
+        Cube cube = _pool.GetObject();
 
         float positionX = Random.Range(_minPositionX, _maxPositionX);
         float positionZ = Random.Range(_minPositionZ, _maxPositionZ);
 
-        component.transform.position = new(positionX, _positionY, positionZ);
+        cube.transform.position = new(positionX, _positionY, positionZ);
 
-        return component;
+        return cube;
     }
 
-    public void Release(T component)
-        => _pool.ReleaseObject(component);
+    public void Release(Cube cube)
+        => _pool.ReleaseCube(cube);
 }
