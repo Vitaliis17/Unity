@@ -1,55 +1,55 @@
 using UnityEngine;
-using System.Collections.Generic;
 using System.Collections;
 
 public class ObjectHandler<T> : MonoBehaviour where T : Component
 {
+
+    [field: SerializeField, Min(1f)] public float Periodicity { get; }
+
+    [field: SerializeField, Min(0f)] public float MinDestroyingTime { get; private set; }
+    [field: SerializeField, Min(0f)] public float MaxDestroyingTime { get; private set; }
+
     [SerializeField] private Pool<T> _pool;
     [SerializeField] private Timer<T> _timer;
+    [SerializeField] private Spawner _spawner;
 
-    private List<Coroutine> _deathTimers;
+    private void OnValidate()
+    {
+        if (MinDestroyingTime > MaxDestroyingTime)
+            (MinDestroyingTime, MaxDestroyingTime) = (MaxDestroyingTime, MinDestroyingTime);
+    }
 
     private void Awake()
     {
-        _deathTimers = new List<Coroutine>();
-
-        StartCoroutine(_timer.WaitConstantly(2f));
+        float spawningPeriodicity = Periodicity;
+        StartCoroutine(_timer.WaitConstantly(spawningPeriodicity));
     }
 
     private void OnEnable()
     {
         _timer.TimeExpired += GetObject;
-        _timer.TranslateObject += ReleaseObject;
+        _timer.TranslateObject += _pool.ReleaseObject;
     }
 
     private void OnDisable()
     {
         _timer.TimeExpired -= GetObject;
-        _timer.TranslateObject -= ReleaseObject;
+        _timer.TranslateObject -= _pool.ReleaseObject;
     }
 
     private void GetObject()
     {
         T component = _pool.GetObject();
-        Coroutine coroutine = StartDeathTimer(component);
+        IEnumerator deathTimer = GetDeathTimer(component);
 
         if (component is Cube cube)
-            cube.CollisionLayerCollided += () => _deathTimers.Add(coroutine);
+            cube.CollisionLayerCollided += () => StartCoroutine(deathTimer);
     }
 
-    private void ReleaseObject(T component)
+    private IEnumerator GetDeathTimer(T component)
     {
-        _pool.ReleaseObject(component);
-    }
+        float lifeTime = Random.Range(MinDestroyingTime, MaxDestroyingTime);
 
-    private Coroutine StartDeathTimer(T component)
-    {
-        const float MinLifeTime = 2f;
-        const float MaxLifeTime = 5f;
-
-        float lifeTime = Random.Range(MinLifeTime, MaxLifeTime);
-
-        IEnumerator enumerator = _timer.WaitSeconds(lifeTime, component);
-        return StartCoroutine(enumerator);
+        return _timer.WaitSeconds(lifeTime, component);
     }
 }
