@@ -3,16 +3,14 @@ using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(MaterialColor))]
 public class Cube : MonoBehaviour
 {
     [SerializeField] private LayerMask[] _collisionLayers;
 
     public event Action CollisionLayerCollided;
 
-    public Renderer Renderer { get; private set; }
-
-    private void Awake()
-        => Renderer = GetComponent<Renderer>();
+    [field: SerializeField] public MaterialColor MaterialColor { get; private set; }
 
     private void OnCollisionEnter(Collision collision)
     {

@@ -13,9 +13,8 @@ GameObject:
   - component: {fileID: 1610349178784063969}
   - component: {fileID: 6104269914706943926}
   - component: {fileID: 3505541019605930547}
-  - component: {fileID: 3052691797462080408}
-  - component: {fileID: 2162824142470759767}
   - component: {fileID: 3831871100667111676}
+  - component: {fileID: 176092832051768284}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -36,7 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3431244531894667882
 MeshFilter:
@@ -136,34 +135,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &3052691797462080408
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6201794372500313474}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da9acd72b0855b04097f5e3862a7259e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxChangingColorAmount: 1
---- !u!114 &2162824142470759767
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6201794372500313474}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c640cb12dee5c54ca1c681e301265b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _collisionLayers:
-  - serializedVersion: 2
-    m_Bits: 64
 --- !u!114 &3831871100667111676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,5 +147,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f531e802d2aecb04e9c8d88a0fda2910, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _materialColor: {fileID: 3052691797462080408}
-  _collisionHandler: {fileID: 2162824142470759767}
+  _collisionLayers:
+  - serializedVersion: 2
+    m_Bits: 64
+  <MaterialColor>k__BackingField: {fileID: 176092832051768284}
+--- !u!114 &176092832051768284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6201794372500313474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da9acd72b0855b04097f5e3862a7259e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CubeHandler : MonoBehaviour
 {
-    [field: SerializeField, Min(1f)] public float PeriodicitySpawning { get; }
+    [field: SerializeField, Min(1f)] public float PeriodicitySpawning { get; private set; }
 
     [field: SerializeField, Min(0f)] public float MinDestroyingTime { get; private set; }
     [field: SerializeField, Min(0f)] public float MaxDestroyingTime { get; private set; }
@@ -43,7 +43,7 @@ public class CubeHandler : MonoBehaviour
         cube.CollisionLayerCollided += () =>
         {
             StartCoroutine(deathTimer);
-            cube.Renderer.material.color = Random.ColorHSV();
+            cube.MaterialColor.Renderer.material.color = Random.ColorHSV();
         };
     }
 
