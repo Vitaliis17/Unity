@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3505541019605930547}
   - component: {fileID: 3052691797462080408}
   - component: {fileID: 2162824142470759767}
-  - component: {fileID: 4136921852488919520}
+  - component: {fileID: 3831871100667111676}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -36,7 +36,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3431244531894667882
 MeshFilter:
@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da9acd72b0855b04097f5e3862a7259e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxChangingColorAmount: 1
 --- !u!114 &2162824142470759767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,7 +164,7 @@ MonoBehaviour:
   _collisionLayers:
   - serializedVersion: 2
     m_Bits: 64
---- !u!114 &4136921852488919520
+--- !u!114 &3831871100667111676
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

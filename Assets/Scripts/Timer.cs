@@ -2,26 +2,27 @@ using System.Collections;
 using UnityEngine;
 using System;
 
-public class Timer : MonoBehaviour
+public class Timer<T> : MonoBehaviour where T : Component
 {
-    [SerializeField, Min(0)] private float _lifeTime;
-
     public event Action TimeExpired;
+    public event Action<T> TranslateObject;
 
-    private IEnumerator Run()
+    public IEnumerator WaitSeconds(float waitingTime, T component)
     {
-        WaitForEndOfFrame waiting = new();
+        yield return new WaitForSeconds(waitingTime);
 
-        while(HasTime())
+        TranslateObject?.Invoke(component);
+    }
+
+    public IEnumerator WaitConstantly(float waitingTime)
+    {
+        WaitForSeconds waiting = new(waitingTime);
+
+        while (true)
         {
-            _lifeTime -= Time.deltaTime;
+            TimeExpired?.Invoke();
 
             yield return waiting;
         }
-
-        TimeExpired?.Invoke();
     }
-
-    private bool HasTime()
-        => _lifeTime > 0;
 }

@@ -1,14 +1,24 @@
+using System;
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Cube : MonoBehaviour
 {
-    [SerializeField] private MaterialColor _materialColor;
-    [SerializeField] private CollisionHandler _collisionHandler;
+    [SerializeField] private LayerMask[] _collisionLayers;
 
-    private void OnEnable()
-        => _collisionHandler.CollisionLayerCollided += _materialColor.SetRandomColor;
+    public event Action CollisionLayerCollided;
 
-    private void OnDisable()
-        => _collisionHandler.CollisionLayerCollided -= _materialColor.SetRandomColor;
+    public Renderer _renderer { get; private set; }
+
+    private void Awake()
+        => _renderer = GetComponent<Renderer>();
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        LayerMask collisionLayer = 1 << collision.gameObject.layer;
+
+        if (_collisionLayers.Any(layer => collisionLayer == layer.value))
+            CollisionLayerCollided?.Invoke();
+    }
 }
