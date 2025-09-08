@@ -1,17 +1,28 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Renderer))]
 public class MaterialColor : MonoBehaviour
 {
     private Color _baseColor;
+    private Renderer _renderer;
 
-    public Renderer Renderer {  get; private set; }
+    public bool Swaped { get; private set; }
 
     private void Awake()
     {
-        Renderer = GetComponent<Renderer>();
-        _baseColor = Renderer.material.color;
+        _renderer = GetComponent<Renderer>();
+        _baseColor = _renderer.material.color;
     }
 
     private void OnEnable()
-        => Renderer.material.color = _baseColor;
+    {
+        Swaped = false;
+        _renderer.material.color = _baseColor;
+    }
+
+    public void SetRandomColor()
+    {
+        _renderer.material.color = Random.ColorHSV();
+        Swaped = true;
+    }
 }

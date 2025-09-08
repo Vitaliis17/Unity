@@ -1,29 +1,60 @@
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private Pool _pool;
+    [SerializeField] private Timer _timer;
+
+    [SerializeField] private Cube _cubePrefab;
+    [SerializeField] private Transform _conteiner;
 
     [SerializeField] private float _positionY;
 
-    [SerializeField] private float _minPositionX;
-    [SerializeField] private float _maxPositionX;
+    [SerializeField] private ValueRange<Vector2> _rangePosition;
 
-    [SerializeField] private float _minPositionZ;
-    [SerializeField] private float _maxPositionZ;
+    [field: SerializeField, Min(1f)] public float PeriodicitySpawning { get; private set; }
 
-    public Cube Spawn()
+    private ObjectPool<Cube> _cubes;
+
+    private void Awake()
     {
-        Cube cube = _pool.GetObject();
+        _cubes = new ObjectPool<Cube>(Create, Get, Release, Destroy);
+        StartCoroutine(_timer.WaitConstantly(PeriodicitySpawning));
+    }
 
-        float positionX = Random.Range(_minPositionX, _maxPositionX);
-        float positionZ = Random.Range(_minPositionZ, _maxPositionZ);
+    private void OnEnable()
+        => _timer.ConstantlyTimeExpired += Spawn;
+
+    private void OnDisable()
+        => _timer.ConstantlyTimeExpired -= Spawn;
+
+    private void Spawn()
+    {
+        Cube cube = _cubes.Get();
+
+        float positionX = Random.Range(_rangePosition.MinValue.x, _rangePosition.MaxValue.x);
+        float positionZ = Random.Range(_rangePosition.MinValue.y, _rangePosition.MaxValue.y);
 
         cube.transform.position = new(positionX, _positionY, positionZ);
 
-        return cube;
+        cube.Releasing += ReleaseCube;
     }
 
-    public void Release(Cube cube)
-        => _pool.ReleaseCube(cube);
+    private Cube Create()
+        => Instantiate(_cubePrefab, _conteiner.transform);
+
+    private void Get(Cube cube)
+        => cube.gameObject.SetActive(true);
+
+    private void ReleaseCube(Cube cube)
+    {
+        cube.Releasing -= ReleaseCube;
+        _cubes.Release(cube);
+    }
+
+    private void Release(Cube cube)
+        => cube.gameObject.SetActive(false);
+
+    private void Destroy(Cube cube)
+        => Destroy(cube.gameObject);
 }

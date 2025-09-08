@@ -1,25 +1,33 @@
 using System;
-using System.Linq;
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(MaterialColor))]
 public class Cube : MonoBehaviour
 {
-    [SerializeField] private LayerMask[] _collisionLayers;
+    [SerializeField] private MaterialColor _materialColor;
+    [SerializeField] private Timer _timer;
 
-    public event Action CollisionLayerCollided;
+    [SerializeField] private ValueRange<float> _rangeDestroyingTime;
 
-    [field: SerializeField] public MaterialColor MaterialColor { get; private set; }
+    public event Action<Cube> Releasing;
 
     private void OnCollisionEnter(Collision collision)
     {
-        LayerMask collisionLayer = 1 << collision.gameObject.layer;
-
-        if (_collisionLayers.Any(layer => collisionLayer == layer.value))
+        if (_materialColor.Swaped == false && collision.gameObject.TryGetComponent(out MeshCollider collider))
         {
-            CollisionLayerCollided?.Invoke();
-            CollisionLayerCollided = null;
+            StartCoroutine(PerformDeathTimer());
+            _materialColor.SetRandomColor();
         }
+    }
+
+    private IEnumerator PerformDeathTimer()
+    {
+        float lifeTime = UnityEngine.Random.Range(_rangeDestroyingTime.MinValue, _rangeDestroyingTime.MaxValue);
+
+        yield return _timer.WaitSeconds(lifeTime);
+
+        Releasing.Invoke(this);
     }
 }

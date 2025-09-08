@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3505541019605930547}
   - component: {fileID: 3831871100667111676}
   - component: {fileID: 176092832051768284}
+  - component: {fileID: 8879235892506393170}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -147,10 +148,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f531e802d2aecb04e9c8d88a0fda2910, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _collisionLayers:
-  - serializedVersion: 2
-    m_Bits: 64
-  <MaterialColor>k__BackingField: {fileID: 176092832051768284}
+  _materialColor: {fileID: 176092832051768284}
+  _timer: {fileID: 8879235892506393170}
+  _rangeDestroyingTime:
+    <MinValue>k__BackingField: 2
+    <MaxValue>k__BackingField: 5
+  _minDestroyingTime: 2
+  _maxDestroyingTime: 5
 --- !u!114 &176092832051768284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,5 +165,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da9acd72b0855b04097f5e3862a7259e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8879235892506393170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6201794372500313474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 367823c4f25a983458ab74fed3570fb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

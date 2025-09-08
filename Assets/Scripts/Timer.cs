@@ -4,14 +4,14 @@ using System;
 
 public class Timer : MonoBehaviour
 {
-    public event Action TimeExpired;
-    public event Action<Cube> TranslateObject;
+    public event Action SecondsTimeExpired;
+    public event Action ConstantlyTimeExpired;
 
-    public IEnumerator WaitSeconds(float waitingTime, Cube cube)
+    public IEnumerator WaitSeconds(float waitingTime)
     {
         yield return new WaitForSeconds(waitingTime);
-
-        TranslateObject?.Invoke(cube);
+        
+        SecondsTimeExpired?.Invoke();
     }
 
     public IEnumerator WaitConstantly(float waitingTime)
@@ -20,7 +20,7 @@ public class Timer : MonoBehaviour
 
         while (true)
         {
-            TimeExpired?.Invoke();
+            ConstantlyTimeExpired?.Invoke();
 
             yield return waiting;
         }
