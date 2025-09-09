@@ -1,28 +1,21 @@
+using System;
 using System.Collections;
 using UnityEngine;
-using System;
 
-public class Timer : MonoBehaviour
+public class Timer
 {
-    public event Action SecondsTimeExpired;
-    public event Action ConstantlyTimeExpired;
+    public event Action ConstantlyTimePassed;
 
-    public IEnumerator WaitSeconds(float waitingTime)
+    public IEnumerator Wait—onstantly(float time)
     {
-        yield return new WaitForSeconds(waitingTime);
-        
-        SecondsTimeExpired?.Invoke();
-    }
-
-    public IEnumerator WaitConstantly(float waitingTime)
-    {
-        WaitForSeconds waiting = new(waitingTime);
+        WaitForSeconds waitingTime = new(time);
 
         while (true)
         {
-            ConstantlyTimeExpired?.Invoke();
+            yield return waitingTime;
 
-            yield return waiting;
+            ConstantlyTimePassed?.Invoke();
         }
     }
+
 }
