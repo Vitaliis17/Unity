@@ -4,8 +4,12 @@ public class Patrolman : Enemy
 {
     [SerializeField] private Transform[] _purposes;
 
-    private void Awake()
-        => CurrentPurpose = _purposes[0];
+    protected override void Awake()
+    {
+        base.Awake();
+
+        CurrentPurpose = _purposes[0];
+    }
 
     private void FixedUpdate()
     {

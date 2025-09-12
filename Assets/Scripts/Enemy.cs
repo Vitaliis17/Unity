@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
 
     protected Transform CurrentPurpose;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
 
