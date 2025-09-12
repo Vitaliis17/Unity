@@ -2,52 +2,35 @@ using UnityEngine;
 
 public class Patrolman : Enemy
 {
-    [SerializeField] private Vector3[] _purposes;
+    [SerializeField] private Transform[] _purposes;
 
-    private Vector3 _currentPurpose;
-
-    protected override void Awake()
-    {
-        base.Awake();
-        _currentPurpose = _purposes[0];
-    }
+    private void Awake()
+        => CurrentPurpose = _purposes[0];
 
     private void FixedUpdate()
     {
         if(IsReachePurpose())
             SetNextPurpose();
-
-        CalculateVelocity();
     }
 
     private void SetNextPurpose()
     {
-        int index = 0;
+        int nextIndex = 0;
 
         for(int i = 0; i < _purposes.Length; i++)
         {
-            if (_purposes[i].Equals(_currentPurpose))
+            if (_purposes[i].Equals(CurrentPurpose))
             {
-                index = i + 1;
+                nextIndex = i + 1;
 
                 break;
             }
         }
 
-        if (index == _purposes.Length)
-            index = 0;
+        if (nextIndex == _purposes.Length)
+            nextIndex = 0;
 
-        _currentPurpose = _purposes[index];
-    }
-
-    private void CalculateVelocity()
-    {
-        Vector3 directionVector = (_currentPurpose - transform.position).normalized;
-        Vector3 velocity = directionVector * _speed * Time.deltaTime;
-
-        velocity.y = _rigidbody.velocity.y;
-
-        _rigidbody.velocity = velocity;
+        CurrentPurpose = _purposes[nextIndex];
     }
 
     private bool IsReachePurpose()
@@ -55,8 +38,8 @@ public class Patrolman : Enemy
         const float MinDistance = 0.01f;
 
         Vector2 currentPosition = new(transform.position.x, transform.position.z);
-        Vector2 purposePosition = new(_currentPurpose.x, _currentPurpose.z);
+        Vector2 purposePosition = new(CurrentPurpose.position.x, CurrentPurpose.position.z);
 
-        return Vector2.Distance(currentPosition, purposePosition) <= MinDistance * _speed * Time.deltaTime;
+        return Vector2.Distance(currentPosition, purposePosition) <= MinDistance * Speed * Time.deltaTime;
     }
 }
