@@ -4,12 +4,9 @@ using System.Collections.Generic;
 [RequireComponent(typeof(Timer))]
 class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private Transform _container;
-
     [SerializeField] private Timer _timer;
-    [SerializeField] private Enemy _enemyPrefab;
 
-    [SerializeField] private List<Transform> _spawningPoints;
+    [SerializeField] private List<SpawnerPoint> _spawnerPoints;
 
     [SerializeField, Min(0)] private float _spawningTime;
 
@@ -24,17 +21,14 @@ class EnemySpawner : MonoBehaviour
 
     private void Spawn()
     {
-        Transform spawningPoint = GetRandomSpawningPoint();
-
-        Enemy enemy = Instantiate(_enemyPrefab, _container);
-
-        enemy.transform.position = spawningPoint.position;
+        SpawnerPoint spawnerPoint = GetRandomSpawnerPoint();
+        spawnerPoint.Spawn();
     }
 
-    private Transform GetRandomSpawningPoint()
+    private SpawnerPoint GetRandomSpawnerPoint()
     {
-        int index = Random.Range(0, _spawningPoints.Count);
+        int index = Random.Range(0, _spawnerPoints.Count);
 
-        return _spawningPoints[index];
+        return _spawnerPoints[index];
     }
 }

@@ -5,19 +5,27 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] protected float Speed;
 
-    private Rigidbody _rigidbody;
-
     protected Transform CurrentPurpose;
+    
+    private Rigidbody _rigidbody;
 
     protected virtual void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
-
+        
         _rigidbody.freezeRotation = true;
     }
 
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
         => CalculateVelocity();
+
+    public void SetPurpose(Transform purpose)
+    {
+        if (CurrentPurpose != null)
+            return;
+
+        CurrentPurpose = purpose;
+    }
 
     private void CalculateVelocity()
     {

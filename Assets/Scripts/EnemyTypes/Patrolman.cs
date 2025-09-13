@@ -9,10 +9,14 @@ public class Patrolman : Enemy
         base.Awake();
 
         CurrentPurpose = _purposes[0];
+
+        GetComponent<Renderer>().material.color = Color.black;
     }
 
-    private void FixedUpdate()
+    protected override void FixedUpdate()
     {
+        base.FixedUpdate();
+
         if(IsReachePurpose())
             SetNextPurpose();
     }
