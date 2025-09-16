@@ -2,18 +2,17 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class Timer : MonoBehaviour
+public class Timer
 {
-    public event Action ConstantlyTimePassed;
+    public Action ConstantlyTimePassed;
 
-    public IEnumerator WaitConstantly(float time)
+    public IEnumerator WaitConstantly()
     {
-        WaitForSeconds waitingTime = new(time);
-        
-        while (enabled)
-        {
-            yield return waitingTime;
+        WaitForFixedUpdate waitForFixedUpdate = new();
 
+        while (true)
+        {
+            yield return waitForFixedUpdate;
             ConstantlyTimePassed?.Invoke();
         }
     }
