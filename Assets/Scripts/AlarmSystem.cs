@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
@@ -9,10 +10,6 @@ public class AlarmSystem : MonoBehaviour
     [SerializeField, Range(0, 1)] private float _speed;
 
     private AudioSource _audioSource;
-
-    private Timer _timer;
-    private Directions _volumeDirection;
-
     private Coroutine _coroutine;
 
     private void Awake()
@@ -20,69 +17,55 @@ public class AlarmSystem : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
         _audioSource.clip = _audioClip;
         _audioSource.volume = 0f;
-
-        _timer = new();
     }
 
     private void OnEnable()
     {
-        _triggerHandler.Entered += Play;
-        _triggerHandler.Exited += Stop;
-
-        _timer.ConstantlyTimePassed += ChangeVolume;
+        _triggerHandler.Entered += IncreaseVolume;
+        _triggerHandler.Exited += ReduceVolume;
     }
 
     private void OnDisable()
     {
-        _triggerHandler.Entered -= Play;
-        _triggerHandler.Exited -= Stop;
-
-        _timer.ConstantlyTimePassed -= ChangeVolume;
+        _triggerHandler.Entered -= IncreaseVolume;
+        _triggerHandler.Exited -= ReduceVolume;
     }
 
-    private void Play()
+    private void IncreaseVolume()
     {
-        _volumeDirection = Directions.Forward;
-
-        if (_coroutine != null)
-            StopCoroutine(_coroutine);
-
-        _coroutine = StartCoroutine(_timer.WaitConstantly());
-    }
-
-    private void Stop()
-    {
-        _volumeDirection = Directions.Backward;
-
-        if (_coroutine != null)
-            StopCoroutine(_coroutine);
-
-        _coroutine = StartCoroutine(_timer.WaitConstantly());
-    }
-
-    private void ChangeVolume()
-    {
-        const float MinVolume = 0f;
-        const float MaxVolume = 1f;
-
-        float targetVolume = 0;
-
-        if (_volumeDirection == Directions.Forward && _audioSource.isPlaying == false)
+        if (_audioSource.isPlaying == false)
             _audioSource.Play();
 
-        switch (_volumeDirection)
+        float maxValue = (int)VolumeValues.Max;
+        StartNewCorutine(ChangeVolume(maxValue));
+    }
+
+    private void ReduceVolume()
+    {
+        float minValue = (int)VolumeValues.Min;
+        StartNewCorutine(ChangeVolume(minValue));
+    }
+
+    private IEnumerator ChangeVolume(float targetVolume)
+    {
+        WaitForFixedUpdate waitingTime = new();
+
+        while (_audioSource.volume != targetVolume)
         {
-            case Directions.Forward:
-                targetVolume = MaxVolume;
-                break;
-            case Directions.Backward:
-                targetVolume = MinVolume;
-                break;
+            _audioSource.volume = Mathf.MoveTowards(_audioSource.volume, targetVolume, _speed * Time.deltaTime);
+
+            yield return waitingTime;
         }
 
-        _audioSource.volume = Mathf.MoveTowards(_audioSource.volume, targetVolume, _speed * Time.deltaTime);
-
-        if (_audioSource.volume == MinVolume)
+        if (_audioSource.volume == (int)VolumeValues.Min)
             _audioSource.Stop();
+    }
+
+    private void StartNewCorutine(IEnumerator enumerator)
+    {
+        if (_coroutine != null)
+            StopCoroutine(_coroutine);
+
+        _coroutine = StartCoroutine(enumerator);
     }
 }
