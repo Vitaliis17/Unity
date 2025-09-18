@@ -26,8 +26,8 @@ public class Door : MonoBehaviour
     }
 
     private void Open()
-        => _animator.Play(DoorAnimationsHashes.Open);
+        => _animator.Play(DoorAnimationHashes.Open);
 
     private void Close()
-        => _animator.Play(DoorAnimationsHashes.Close);
+        => _animator.Play(DoorAnimationHashes.Close);
 }
