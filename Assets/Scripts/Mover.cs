@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Movement : MonoBehaviour
+public class Mover : MonoBehaviour
 {
     [SerializeField] private Transform[] _movingPoints;
 
@@ -10,6 +10,7 @@ public class Movement : MonoBehaviour
     private Transform _currentMovingPoint;
     private Rigidbody _rigidbody;
 
+    private int _currentPointIndex;
     private int _direction;
 
     private void Awake()
@@ -45,13 +46,12 @@ public class Movement : MonoBehaviour
     {
         const int FirstIndex = 0;
 
-        int currentIndex = GetCurrentMovingPointIndex();
-        int nextIndex = currentIndex + _direction;
+        _currentPointIndex += _direction;
 
-        if(nextIndex == FirstIndex || nextIndex == _movingPoints.Length - 1)
+        if(_currentPointIndex == FirstIndex || _currentPointIndex == _movingPoints.Length - 1)
             ReverseDirection();
 
-        _currentMovingPoint = _movingPoints[nextIndex];
+        _currentMovingPoint = _movingPoints[_currentPointIndex];
     }
 
     private void ReverseDirection()
@@ -59,21 +59,5 @@ public class Movement : MonoBehaviour
         const int ReversingMultiply = -1;
 
         _direction *= ReversingMultiply;
-    }
-
-    private int GetCurrentMovingPointIndex()
-    {
-        int index = 0;
-
-        for(int i = 0; i < _movingPoints.Length; i++)
-        {
-            if(_movingPoints[i] == _currentMovingPoint)
-            {
-                index = i;
-                break;
-            }
-        }
-
-        return index;
     }
 }

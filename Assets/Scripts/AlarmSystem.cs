@@ -4,6 +4,9 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class AlarmSystem : MonoBehaviour
 {
+    private const float _maxVolume = 1f;
+    private const float _minVolume = 0f;
+
     [SerializeField, Range(0, 1)] private float _speed;
 
     [SerializeField] private AudioClip _audioClip;
@@ -15,40 +18,32 @@ public class AlarmSystem : MonoBehaviour
     {
         _audioSource = GetComponent<AudioSource>();
         _audioSource.clip = _audioClip;
-        _audioSource.volume = 0f;
+        _audioSource.volume = _minVolume;
     }
 
     public void IncreaseVolume()
     {
-        const float MaxValue = 1f;
-
         if (_audioSource.isPlaying == false)
             _audioSource.Play();
 
-        StartNewCorutine(ChangeVolume(MaxValue));
+        StartNewCorutine(ChangeVolume(_maxVolume));
     }
 
     public void ReduceVolume()
-    {
-        const float MinValue = 0f;
-
-        StartNewCorutine(ChangeVolume(MinValue));
-    }
+        => StartNewCorutine(ChangeVolume(_minVolume));
 
     private IEnumerator ChangeVolume(float targetVolume)
     {
-        const float MinValue = 0f;
-
         WaitForFixedUpdate waitingTime = new();
 
         while (Mathf.Approximately(_audioSource.volume, targetVolume) == false)
         {
-            _audioSource.volume = Mathf.MoveTowards(_audioSource.volume, targetVolume, _speed * Time.deltaTime);
+            _audioSource.volume = Mathf.MoveTowards(_audioSource.volume, targetVolume, _speed * Time.fixedDeltaTime);
 
             yield return waitingTime;
         }
 
-        if (_audioSource.volume == MinValue)
+        if (_audioSource.volume == _minVolume)
             _audioSource.Stop();
     }
 
