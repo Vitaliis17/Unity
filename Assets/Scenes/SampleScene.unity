@@ -945,9 +945,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37f487073432f334ab482c8434e83156, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animations:
-    _opening: {fileID: 7400000, guid: e8d5c5d5ddc94314ab337ef495fdb24a, type: 2}
-    _closing: {fileID: 7400000, guid: e734227438713544da217a5689e9a84f, type: 2}
   _rotationPoint: {x: 542, y: 50, z: 168}
   _rotationAngle: 15
   _triggerHandler: {fileID: 2018500036}
@@ -1458,6 +1455,7 @@ GameObject:
   - component: {fileID: 1370307018}
   - component: {fileID: 1370307019}
   - component: {fileID: 1370307020}
+  - component: {fileID: 1370307021}
   m_Layer: 0
   m_Name: Home
   m_TagString: Untagged
@@ -1592,9 +1590,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 091249e4c489acd438e90710853c2bf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _triggerHandler: {fileID: 321121494}
-  _audioClip: {fileID: 8300000, guid: 6e011b27fe0e45244bd17244efc7e504, type: 3}
   _speed: 0.212
+  _audioClip: {fileID: 8300000, guid: 6e011b27fe0e45244bd17244efc7e504, type: 3}
+--- !u!114 &1370307021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1370307017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 428c9ffddcb33f04e997b7077574b9c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _alarmSystemZone: {fileID: 321121494}
 --- !u!1 &1406452518
 GameObject:
   m_ObjectHideFlags: 0

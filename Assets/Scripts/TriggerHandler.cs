@@ -11,8 +11,14 @@ public class TriggerHandler : MonoBehaviour
         => GetComponent<Collider>().isTrigger = true;
 
     private void OnTriggerEnter(Collider other)
-        => Entered?.Invoke();
+    {
+        if (other.TryGetComponent(out Movement movement))
+            Entered?.Invoke();
+    }
 
     private void OnTriggerExit(Collider other)
-        => Exited?.Invoke();
+    {
+        if (other.TryGetComponent(out Movement movement))
+            Exited?.Invoke();
+    }
 }

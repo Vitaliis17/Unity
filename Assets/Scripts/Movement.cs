@@ -14,15 +14,17 @@ public class Movement : MonoBehaviour
 
     private void Awake()
     {
+        const int PositiveDirection = 1;
+
         _rigidbody = GetComponent<Rigidbody>();
-        _direction = (int)Directions.Forward;
+        _direction = PositiveDirection;
 
         _currentMovingPoint = _movingPoints[0];
     }
 
     private void FixedUpdate()
     {
-        float maxDistanceDelta = _speed * Time.deltaTime;
+        float maxDistanceDelta = _speed * Time.fixedDeltaTime;
         Vector3 nextPosition = Vector3.MoveTowards(_rigidbody.position, _currentMovingPoint.position, maxDistanceDelta);
 
         _rigidbody.MovePosition(nextPosition);
@@ -32,7 +34,12 @@ public class Movement : MonoBehaviour
     }
 
     private bool IsReachedPoint()
-        => _rigidbody.position == _currentMovingPoint.position;
+    {
+        const float NoDistance = 0f;
+
+        float squareDistance = (_rigidbody.position - _currentMovingPoint.position).sqrMagnitude;
+        return Mathf.Approximately(squareDistance, NoDistance);
+    }
 
     private void SetNextCurrentMovingPoint()
     {
@@ -49,13 +56,9 @@ public class Movement : MonoBehaviour
 
     private void ReverseDirection()
     {
-        if(_direction == (int)Directions.Forward)
-        {
-            _direction = (int)Directions.Backward;
-            return;
-        }
+        const int ReversingMultiply = -1;
 
-        _direction = (int)Directions.Forward;
+        _direction *= ReversingMultiply;
     }
 
     private int GetCurrentMovingPointIndex()

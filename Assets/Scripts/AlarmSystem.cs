@@ -4,10 +4,9 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class AlarmSystem : MonoBehaviour
 {
-    [SerializeField] private TriggerHandler _triggerHandler;
-    [SerializeField] private AudioClip _audioClip;
-
     [SerializeField, Range(0, 1)] private float _speed;
+
+    [SerializeField] private AudioClip _audioClip;
 
     private AudioSource _audioSource;
     private Coroutine _coroutine;
@@ -19,45 +18,37 @@ public class AlarmSystem : MonoBehaviour
         _audioSource.volume = 0f;
     }
 
-    private void OnEnable()
+    public void IncreaseVolume()
     {
-        _triggerHandler.Entered += IncreaseVolume;
-        _triggerHandler.Exited += ReduceVolume;
-    }
+        const float MaxValue = 1f;
 
-    private void OnDisable()
-    {
-        _triggerHandler.Entered -= IncreaseVolume;
-        _triggerHandler.Exited -= ReduceVolume;
-    }
-
-    private void IncreaseVolume()
-    {
         if (_audioSource.isPlaying == false)
             _audioSource.Play();
 
-        float maxValue = (int)VolumeValues.Max;
-        StartNewCorutine(ChangeVolume(maxValue));
+        StartNewCorutine(ChangeVolume(MaxValue));
     }
 
-    private void ReduceVolume()
+    public void ReduceVolume()
     {
-        float minValue = (int)VolumeValues.Min;
-        StartNewCorutine(ChangeVolume(minValue));
+        const float MinValue = 0f;
+
+        StartNewCorutine(ChangeVolume(MinValue));
     }
 
     private IEnumerator ChangeVolume(float targetVolume)
     {
+        const float MinValue = 0f;
+
         WaitForFixedUpdate waitingTime = new();
 
-        while (_audioSource.volume != targetVolume)
+        while (Mathf.Approximately(_audioSource.volume, targetVolume) == false)
         {
             _audioSource.volume = Mathf.MoveTowards(_audioSource.volume, targetVolume, _speed * Time.deltaTime);
 
             yield return waitingTime;
         }
 
-        if (_audioSource.volume == (int)VolumeValues.Min)
+        if (_audioSource.volume == MinValue)
             _audioSource.Stop();
     }
 

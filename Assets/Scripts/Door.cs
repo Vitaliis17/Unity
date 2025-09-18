@@ -3,8 +3,6 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class Door : MonoBehaviour
 {
-    [SerializeField] private DoorAnimations _animations;
-
     [SerializeField] private Vector3 _rotationPoint;
     [SerializeField] private float _rotationAngle;
 
@@ -28,8 +26,8 @@ public class Door : MonoBehaviour
     }
 
     private void Open()
-        => _animator.Play(_animations.Opening);
+        => _animator.Play(DoorAnimations.Open);
 
     private void Close()
-        => _animator.Play(_animations.Closing);
+        => _animator.Play(DoorAnimations.Close);
 }
