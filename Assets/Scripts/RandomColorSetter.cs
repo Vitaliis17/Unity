@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Renderer))]
-public class MaterialColor : MonoBehaviour
+public class RandomColorSetter : MonoBehaviour
 {
     private Color _baseColor;
     private Renderer _renderer;

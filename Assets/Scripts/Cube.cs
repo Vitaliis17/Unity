@@ -3,10 +3,10 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(MaterialColor))]
+[RequireComponent(typeof(RandomColorSetter))]
 public class Cube : MonoBehaviour
 {
-    [SerializeField] private MaterialColor _materialColor;
+    [SerializeField] private RandomColorSetter _colorSetter;
     [SerializeField] private Timer _timer;
 
     [SerializeField] private ValueRange<float> _rangeDestroyingTime;
@@ -15,10 +15,10 @@ public class Cube : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (_materialColor.Swaped == false && collision.gameObject.TryGetComponent(out MeshCollider collider))
+        if (_colorSetter.Swaped == false && collision.gameObject.TryGetComponent(out MeshCollider collider))
         {
             StartCoroutine(PerformDeathTimer());
-            _materialColor.SetRandomColor();
+            _colorSetter.SetRandomColor();
         }
     }
 

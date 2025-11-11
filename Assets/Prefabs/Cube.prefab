@@ -148,13 +148,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f531e802d2aecb04e9c8d88a0fda2910, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _materialColor: {fileID: 176092832051768284}
+  _colorSetter: {fileID: 176092832051768284}
   _timer: {fileID: 8879235892506393170}
   _rangeDestroyingTime:
     <MinValue>k__BackingField: 2
     <MaxValue>k__BackingField: 5
-  _minDestroyingTime: 2
-  _maxDestroyingTime: 5
 --- !u!114 &176092832051768284
 MonoBehaviour:
   m_ObjectHideFlags: 0
