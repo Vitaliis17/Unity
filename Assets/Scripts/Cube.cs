@@ -3,18 +3,18 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Cube : MonoBehaviour
+public class Cube : MonoBehaviour, ISpawnable
 {
     [SerializeField] private RandomColorSetter _colorSetter;
     [SerializeField] private Timer _timer;
 
     [SerializeField] private ValueRange<float> _rangeDestroyingTime;
 
-    public event Action<Cube> Releasing;
+    public event Action<ISpawnable> Releasing;
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (_colorSetter.Swaped == false && collision.gameObject.TryGetComponent(out MeshCollider collider))
+        if (_colorSetter.Swaped == false && collision.gameObject.TryGetComponent(out MeshCollider _))
         {
             StartCoroutine(PerformDeathTimer());
             _colorSetter.SetRandomColor();
