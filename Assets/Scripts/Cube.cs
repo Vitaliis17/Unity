@@ -3,7 +3,6 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(RandomColorSetter))]
 public class Cube : MonoBehaviour
 {
     [SerializeField] private RandomColorSetter _colorSetter;
@@ -24,7 +23,7 @@ public class Cube : MonoBehaviour
 
     private IEnumerator PerformDeathTimer()
     {
-        float lifeTime = UnityEngine.Random.Range(_rangeDestroyingTime.MinValue, _rangeDestroyingTime.MaxValue);
+        float lifeTime = UnityEngine.Random.Range(_rangeDestroyingTime.Min, _rangeDestroyingTime.Max);
 
         yield return _timer.WaitSeconds(lifeTime);
 

@@ -3,23 +3,24 @@ using UnityEngine.Pool;
 
 public class Spawner : MonoBehaviour
 {
+    [SerializeField, Min(1f)] private float periodicitySpawning;
+    
     [SerializeField] private Timer _timer;
 
     [SerializeField] private Cube _cubePrefab;
-    [SerializeField] private Transform _conteiner;
+    [SerializeField] private Transform _container;
 
     [SerializeField] private float _positionY;
 
     [SerializeField] private ValueRange<Vector2> _rangePosition;
 
-    [field: SerializeField, Min(1f)] public float PeriodicitySpawning { get; private set; }
 
     private ObjectPool<Cube> _cubes;
 
     private void Awake()
     {
         _cubes = new ObjectPool<Cube>(Create, Get, Release, Destroy);
-        StartCoroutine(_timer.WaitConstantly(PeriodicitySpawning));
+        StartCoroutine(_timer.WaitConstantly(periodicitySpawning));
     }
 
     private void OnEnable()
@@ -32,8 +33,8 @@ public class Spawner : MonoBehaviour
     {
         Cube cube = _cubes.Get();
 
-        float positionX = Random.Range(_rangePosition.MinValue.x, _rangePosition.MaxValue.x);
-        float positionZ = Random.Range(_rangePosition.MinValue.y, _rangePosition.MaxValue.y);
+        float positionX = Random.Range(_rangePosition.Min.x, _rangePosition.Max.x);
+        float positionZ = Random.Range(_rangePosition.Min.y, _rangePosition.Max.y);
 
         cube.transform.position = new(positionX, _positionY, positionZ);
 
@@ -41,7 +42,7 @@ public class Spawner : MonoBehaviour
     }
 
     private Cube Create()
-        => Instantiate(_cubePrefab, _conteiner.transform);
+        => Instantiate(_cubePrefab, _container.transform);
 
     private void Get(Cube cube)
         => cube.gameObject.SetActive(true);
