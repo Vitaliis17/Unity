@@ -4,7 +4,7 @@ using System;
 
 public class Timer : MonoBehaviour
 {
-    public event Action SecondsTimeExpired;
+    public event Action TimeExpired;
     public event Action ConstantlyTimeExpired;
 
     public event Action<float, float, float> OnValueChanged;
@@ -13,7 +13,7 @@ public class Timer : MonoBehaviour
     {
         yield return new WaitForSeconds(waitingTime);
         
-        SecondsTimeExpired?.Invoke();
+        TimeExpired?.Invoke();
     }
 
     public IEnumerator WaitConstantly(float waitingTime)
@@ -44,5 +44,7 @@ public class Timer : MonoBehaviour
             waitingTime -= fixedDeltaTime;
             OnValueChanged?.Invoke(maxTime, MinTime, waitingTime);
         }
+
+        TimeExpired?.Invoke();
     }
 }

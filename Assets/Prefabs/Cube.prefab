@@ -151,8 +151,8 @@ MonoBehaviour:
   _colorSetter: {fileID: 176092832051768284}
   _timer: {fileID: 8879235892506393170}
   _rangeDestroyingTime:
-    <MinValue>k__BackingField: 2
-    <MaxValue>k__BackingField: 5
+    <Min>k__BackingField: 2
+    <Max>k__BackingField: 5
 --- !u!114 &176092832051768284
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -266,7 +266,6 @@ GameObject:
   - component: {fileID: 874824446}
   - component: {fileID: 874824445}
   - component: {fileID: 874824452}
-  - component: {fileID: 874824451}
   - component: {fileID: 874824450}
   m_Layer: 0
   m_Name: Bomb
@@ -400,20 +399,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367823c4f25a983458ab74fed3570fb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &874824451
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 874824444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a32f35b6b678eb44db16082ce42bd0ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _timer: {fileID: 874824450}
-  _time: 3
 --- !u!114 &874824452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -427,6 +412,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timer: {fileID: 874824450}
+  _rangeTransparencyTime:
+    <Min>k__BackingField: 2
+    <Max>k__BackingField: 5
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -882,14 +870,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2bc782f03d953c48b3ea3070c7ef3b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  periodicitySpawning: 0
+  periodicitySpawning: 1
   _timer: {fileID: 2082691800}
   _cubePrefab: {fileID: 3831871100667111676, guid: 486bfc283ba1f934585ed8f8c40db7b6, type: 3}
-  _container: {fileID: 0}
+  _container: {fileID: 2082691796}
   _positionY: 10
   _rangePosition:
-    <Min>k__BackingField: {x: 0, y: 0}
-    <Max>k__BackingField: {x: 0, y: 0}
+    <Min>k__BackingField: {x: -18, y: -21}
+    <Max>k__BackingField: {x: 2, y: 0}
 --- !u!114 &2082691800
 MonoBehaviour:
   m_ObjectHideFlags: 0
