@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -542,7 +542,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c9599177232904f408fb11b7c6dd73d8, type: 2}
+  - {fileID: 2100000, guid: 8dc6f1567fc32304b80232172c8bffdf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -596,7 +596,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1676821763}
-  - component: {fileID: 1676821762}
+  - component: {fileID: 1676821764}
   - component: {fileID: 1676821761}
   m_Layer: 0
   m_Name: Spawner
@@ -617,28 +617,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367823c4f25a983458ab74fed3570fb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1676821762
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1676821760}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2bc782f03d953c48b3ea3070c7ef3b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  periodicitySpawning: 1
-  _timer: {fileID: 1676821761}
-  _bombPrefab: {fileID: 4138235397327511405, guid: 331766df35602ab4f85e3e5401479564, type: 3}
-  _bombContainer: {fileID: 892172441}
-  _cubePrefab: {fileID: 3831871100667111676, guid: 486bfc283ba1f934585ed8f8c40db7b6, type: 3}
-  _cubeContainer: {fileID: 2082691796}
-  _positionY: 10
-  _rangePosition:
-    <Min>k__BackingField: {x: -18, y: -21}
-    <Max>k__BackingField: {x: 2, y: 0}
 --- !u!4 &1676821763
 Transform:
   m_ObjectHideFlags: 0
@@ -656,6 +634,29 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1676821764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1676821760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe4e524a8b5ff044abddc9da25ab0f9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _periodicitySpawning: 1
+  _exploder: {fileID: 2014895460}
+  _timer: {fileID: 1676821761}
+  _bombPrefab: {fileID: 4138235397327511405, guid: 331766df35602ab4f85e3e5401479564, type: 3}
+  _bombContainer: {fileID: 892172441}
+  _cubePrefab: {fileID: 3831871100667111676, guid: 486bfc283ba1f934585ed8f8c40db7b6, type: 3}
+  _cubeContainer: {fileID: 2082691796}
+  _positionY: 10
+  _rangePosition:
+    <Min>k__BackingField: {x: -18, y: -21}
+    <Max>k__BackingField: {x: 2, y: 0}
 --- !u!1 &1834806311
 GameObject:
   m_ObjectHideFlags: 0

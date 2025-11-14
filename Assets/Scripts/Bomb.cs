@@ -1,17 +1,16 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using System.Collections.Generic;
 
 public class Bomb : MonoBehaviour, ISpawnable
 {
+    [field: SerializeField] public float ExplosionForce { get; private set; }
+    [field: SerializeField] public float ExplosionRaduis { get; private set; }
+    
     [SerializeField] private Exploder _exploder;
     [SerializeField] private Timer _timer;
 
     [SerializeField] private ValueRange<float> _rangeTransparencyTime;
-
-    [SerializeField] private float _explosionForce;
-    [SerializeField] private float _explosionRaduis;
 
     private TransparencySetter _transparencySetter;
     private Coroutine _coroutine;
@@ -27,7 +26,6 @@ public class Bomb : MonoBehaviour, ISpawnable
     private void OnEnable()
     {
         _timer.OnValueChanged += _transparencySetter.Set;
-        _timer.TimeExpired += Explode;
 
         _coroutine = StartCoroutine(PerformDeathTimer());
     }
@@ -35,7 +33,6 @@ public class Bomb : MonoBehaviour, ISpawnable
     private void OnDisable()
     {
         _timer.OnValueChanged -= _transparencySetter.Set;
-        _timer.TimeExpired -= Explode;
 
         if (_coroutine != null)
         {
@@ -50,23 +47,6 @@ public class Bomb : MonoBehaviour, ISpawnable
 
         yield return _timer.Wait(transparencyTime);
 
-        Explode();
         Releasing?.Invoke(this);
-    }
-
-    private void Explode()
-    {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, _explosionRaduis);
-        List<Rigidbody> rigidbodies = new();
-
-        foreach(Collider collider in colliders)
-        {
-            if(collider.TryGetComponent(out Rigidbody rigidbody))
-            {
-                rigidbodies.Add(rigidbody);
-            }
-        }
-
-        _exploder.Explode(rigidbodies, transform.position, _explosionForce, _explosionRaduis);
     }
 }
