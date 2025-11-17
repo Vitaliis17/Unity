@@ -1,21 +1,24 @@
+using System;
 using UnityEngine;
 using UnityEngine.Pool;
-using System;
 
-public class Spawner<T> where T : Component, ISpawnable
+public abstract class BaseSpawner<T> : MonoBehaviour where T : MonoBehaviour, ISpawnable
 {
-    private readonly T _prefab;
-    private readonly Transform _container;
+    private T _prefab;
+    private Transform _container;
 
     private ObjectPool<T> _pool;
 
     public event Action<T> Releasing;
 
-    public Spawner(T prefab, Transform container)
+    public event Action Spawned;
+    public event Action Creating;
+    public event Action<int> ActiveAmountChanged;
+
+    protected void SetBase(T prefab, Transform container)
     {
         _prefab = prefab;
         _container = container;
-        
         _pool = new ObjectPool<T>(Create, Get, Release, Destroy);
     }
 
@@ -38,14 +41,27 @@ public class Spawner<T> where T : Component, ISpawnable
     }
 
     private T Create()
-        => UnityEngine.Object.Instantiate(_prefab, _container.transform);
+    {
+        Creating?.Invoke();
+
+        return Instantiate(_prefab, _container.transform);
+    }
 
     private void Get(T component)
-        => component.gameObject.SetActive(true);
+    {
+        component.gameObject.SetActive(true);
+
+        Spawned?.Invoke();
+        ActiveAmountChanged?.Invoke(_pool.CountActive);
+    }
 
     private void Release(T component)
-        => component.gameObject.SetActive(false);
+    {
+        component.gameObject.SetActive(false);
+
+        ActiveAmountChanged?.Invoke(_pool.CountActive);
+    }
 
     private void Destroy(T component)
-        => UnityEngine.Object.Destroy(component.gameObject);
+        => Destroy(component.gameObject);
 }

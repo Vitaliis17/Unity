@@ -147,8 +147,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cac7046fb7884d54f8e0ef1ae1fb63e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ExplosionForce>k__BackingField: 250
-  <ExplosionRaduis>k__BackingField: 125
+  <ExplosionForce>k__BackingField: 400
+  <ExplosionRaduis>k__BackingField: 250
   _exploder: {fileID: 0}
   _timer: {fileID: 4739984919061264734}
   _rangeTransparencyTime:

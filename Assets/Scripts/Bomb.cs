@@ -7,9 +7,7 @@ public class Bomb : MonoBehaviour, ISpawnable
     [field: SerializeField] public float ExplosionForce { get; private set; }
     [field: SerializeField] public float ExplosionRaduis { get; private set; }
     
-    [SerializeField] private Exploder _exploder;
     [SerializeField] private Timer _timer;
-
     [SerializeField] private ValueRange<float> _rangeTransparencyTime;
 
     private TransparencySetter _transparencySetter;

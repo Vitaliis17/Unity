@@ -1,33 +1,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainSpawner : MonoBehaviour
+public class SpawnerManager : MonoBehaviour
 {
     [SerializeField, Min(1f)] private float _periodicitySpawning;
 
+    [SerializeField] private CubeSpawner _cubeSpawner;
+    [SerializeField] private BombSpawner _bombSpawner;
+
     [SerializeField] private Exploder _exploder;
     [SerializeField] private Timer _timer;
-
-    [SerializeField] private Bomb _bombPrefab;
-    [SerializeField] private Transform _bombContainer;
-
-    [SerializeField] private Cube _cubePrefab;
-    [SerializeField] private Transform _cubeContainer;
 
     [SerializeField] private float _positionY;
 
     [SerializeField] private ValueRange<Vector2> _rangePosition;
 
-    private Spawner<Cube> _cubeSpawner;
-    private Spawner<Bomb> _bombSpawner;
-
     private Coroutine _coroutine;
 
-    private void Awake()
-    {
-        _cubeSpawner = new(_cubePrefab, _cubeContainer);
-        _bombSpawner = new(_bombPrefab, _bombContainer);
-    }
+    private void Start()
+        => _coroutine = StartCoroutine(_timer.WaitConstantly(_periodicitySpawning));
 
     private void OnEnable()
     {
@@ -35,8 +26,6 @@ public class MainSpawner : MonoBehaviour
         
         _cubeSpawner.Releasing += SpawnBomb;
         _bombSpawner.Releasing += Explode;
-
-        _coroutine = StartCoroutine(_timer.WaitConstantly(_periodicitySpawning));
     }
 
     private void OnDisable()
